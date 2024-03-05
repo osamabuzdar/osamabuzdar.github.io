@@ -206,7 +206,7 @@ a:hover {
 	color: #F33030;
 }
 .header-phone {
-	margin: 50px 0 100px;
+	margin: 50px 0 -50px;
 }
 #intro {
 	padding: 0px 0 100px;
@@ -224,7 +224,7 @@ a:hover {
 }
 #feature {
 	padding: 80px 0;
-	background: #FAD12B;
+	background: #ffffff;
 	color: #202020;
 }
 #feature h2 {
@@ -783,6 +783,7 @@ and (orientation : portrait) {
 	}
 	.btn-section {
 		text-align: center;
+		width: 400px
 	}
 	#feature {
 		padding-top: 75px;
@@ -863,6 +864,7 @@ and (orientation : landscape) {
 	}
 	.btn-section {
 		text-align: center;
+		width: 400px
 	}
 	.feat-list i {
 		padding-left: 40px;
