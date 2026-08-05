@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run validate:legacy && next build && npm run validate:legacy:out",
+    "build": "npm run validate:legacy && next build",
+    "build:github": "next build && npm run validate:legacy:out",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
