@@ -1,9 +1,10 @@
 import Link from "next/link";
+import { Reveal } from "@/components/motion/Reveal";
 import { company, mainNav } from "@/lib/constants";
 
 export function SiteFooter() {
   return (
-    <footer className="site-footer">
+    <Reveal as="footer" className="site-footer">
       <div className="footer-grid">
         <div>
           <p className="footer-brand">Bulk Bytes</p>
@@ -37,6 +38,6 @@ export function SiteFooter() {
       <div className="footer-bottom">
         <span>© Bulk Bytes. All rights reserved.</span>
       </div>
-    </footer>
+    </Reveal>
   );
 }

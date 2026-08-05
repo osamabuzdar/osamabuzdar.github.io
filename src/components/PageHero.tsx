@@ -1,4 +1,9 @@
+"use client";
+
 import Link from "next/link";
+import { m } from "motion/react";
+import { TextReveal } from "@/components/motion/TextReveal";
+import { scaleIn } from "@/lib/motion/variants";
 
 type PageHeroProps = {
   eyebrow?: string;
@@ -24,16 +29,30 @@ export function PageHero({
   return (
     <section className="page-hero" style={{ backgroundImage: `linear-gradient(90deg, rgba(3, 22, 46, .88), rgba(3, 22, 46, .44)), url("${image}")` }}>
       <div className="hero-content">
-        {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
-        <h1>{title}</h1>
-        <p>{description}</p>
+        {eyebrow ? <m.p className="eyebrow" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>{eyebrow}</m.p> : null}
+        <h1><TextReveal text={title} /></h1>
+        <m.p initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.22 }}>{description}</m.p>
         {(primaryHref || secondaryHref) ? (
-          <div className="hero-actions">
+          <m.div className="hero-actions" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.34 }}>
             {primaryHref && primaryLabel ? <Link className="button primary" href={primaryHref}>{primaryLabel}</Link> : null}
             {secondaryHref && secondaryLabel ? <Link className="button secondary" href={secondaryHref}>{secondaryLabel}</Link> : null}
-          </div>
+          </m.div>
         ) : null}
       </div>
+      <m.div className="hero-visual" variants={scaleIn} initial="hidden" animate="visible" aria-hidden="true">
+        <div className="interface-card one">
+          <strong>Mobile Apps</strong>
+          <span>Flutter, Android, iOS</span>
+        </div>
+        <div className="interface-card two">
+          <strong>Cloud APIs</strong>
+          <span>Secure data systems</span>
+        </div>
+        <div className="interface-card three">
+          <strong>GPS + AI</strong>
+          <span>Tracking and automation</span>
+        </div>
+      </m.div>
     </section>
   );
 }

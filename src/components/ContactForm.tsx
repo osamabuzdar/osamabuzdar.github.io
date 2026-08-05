@@ -38,7 +38,8 @@ export function ContactForm() {
           name: form.name.trim(),
           email: form.email.trim(),
           phone: form.phone.trim(),
-          subject: form.subject.trim() || "Website contact",
+          serviceCategory: form.subject.trim() || "Website contact",
+          reasonForEnquiry: form.subject.trim() || "Website contact",
           message: form.message.trim()
         })
       });
@@ -71,8 +72,8 @@ export function ContactForm() {
           <input value={form.phone} onChange={(event) => setForm({ ...form, phone: event.target.value })} />
         </label>
         <label>
-          Subject
-          <input value={form.subject} onChange={(event) => setForm({ ...form, subject: event.target.value })} />
+          Service Category
+          <input required value={form.subject} onChange={(event) => setForm({ ...form, subject: event.target.value })} />
         </label>
       </div>
       <label>

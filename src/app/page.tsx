@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { EntityCard } from "@/components/EntityCard";
+import { AnimatedCounter } from "@/components/motion/AnimatedCounter";
+import { MagneticButton } from "@/components/motion/MagneticButton";
+import { Reveal } from "@/components/motion/Reveal";
+import { Stagger, StaggerItem } from "@/components/motion/Stagger";
 import { PageHero } from "@/components/PageHero";
 import { SectionHeader } from "@/components/SectionHeader";
 import { getPricingPlans, getProjects, getServices, getTestimonials } from "@/lib/api";
@@ -47,6 +51,52 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <section className="capability-section">
+        <SectionHeader
+          eyebrow="Delivery Process"
+          title="From idea to supported launch"
+          description="A calm, repeatable workflow keeps teams aligned while the product moves from strategy to production."
+        />
+        <Stagger className="process-line">
+          {["Idea", "Strategy", "Design", "Development", "Testing", "Deployment", "Support"].map((step) => (
+            <StaggerItem className="process-step" key={step}>
+              <strong>{step}</strong>
+            </StaggerItem>
+          ))}
+        </Stagger>
+      </section>
+
+      <section className="section muted">
+        <SectionHeader eyebrow="Capabilities" title="Built for product, cloud, AI, and tracking work" />
+        <Stagger className="stats-grid">
+          {[
+            { value: 8, suffix: "+", label: "Service areas" },
+            { value: projects.length, suffix: "+", label: "Published projects" },
+            { value: services.length, suffix: "+", label: "API-backed services" },
+            { value: 3, suffix: "+", label: "Content channels" }
+          ].map((stat) => (
+            <StaggerItem className="stat-card" key={stat.label}>
+              <strong><AnimatedCounter value={stat.value} suffix={stat.suffix} /></strong>
+              <span>{stat.label}</span>
+            </StaggerItem>
+          ))}
+        </Stagger>
+      </section>
+
+      <section className="tech-section">
+        <SectionHeader
+          eyebrow="Technology Ecosystem"
+          title="Tools and platforms for reliable delivery"
+        />
+        <Stagger className="tech-grid">
+          {["Flutter", "Next.js", "React", "TypeScript", "Firebase", "AWS", "PostgreSQL", "MongoDB", "Docker", "WordPress"].map((tech) => (
+            <StaggerItem className="tech-pill" key={tech}>
+              <span>{tech}</span>
+            </StaggerItem>
+          ))}
+        </Stagger>
+      </section>
+
       <section className="split-section">
         <div>
           <p className="eyebrow dark">About Our Company</p>
@@ -84,7 +134,10 @@ export default async function HomePage() {
             <article className={`price-card ${plan.highlighted ? "highlighted" : ""}`} key={plan.id}>
               {plan.badge ? <span className="card-kicker">{plan.badge}</span> : null}
               <h3>{plan.title}</h3>
-              <p className="price">{plan.price}</p>
+              <p className="price">
+                {plan.price}
+                {plan.billingCycle ? <span className="price-cycle"> / {plan.billingCycle}</span> : null}
+              </p>
               <p>{plan.billingNote}</p>
               <ul>
                 {plan.features.slice(0, 5).map((feature) => <li key={feature}>{feature}</li>)}
@@ -105,6 +158,21 @@ export default async function HomePage() {
             </blockquote>
           ))}
         </div>
+      </section>
+
+      <section className="final-cta">
+        <Reveal>
+          <p className="eyebrow">Build With Bulk Bytes</p>
+          <h2>Ready to turn the next digital idea into a polished product?</h2>
+          <p>
+            Bring the business goal, product question, or app requirement. Bulk Bytes will help define
+            the smartest path to design, build, launch, and support it.
+          </p>
+          <div className="hero-actions">
+            <MagneticButton href="/contact" className="button primary">Start a Project</MagneticButton>
+            <Link className="button secondary" href="/portfolio">View Work</Link>
+          </div>
+        </Reveal>
       </section>
     </>
   );

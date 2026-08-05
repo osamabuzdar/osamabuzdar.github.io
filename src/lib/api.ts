@@ -182,12 +182,16 @@ function normalizeEntity(record: ApiRecord): SiteEntity {
 
 function normalizePricingPlan(record: ApiRecord): PricingPlan {
   const title = pickString(record, ["planName", "title", "name"], "Pricing Plan");
+  const billingCycle = pickString(record, ["billingCycle"]);
   return {
     id: pickString(record, ["_id", "id", "slug"], slugify(title)),
     title,
     price: pickString(record, ["price"], "Custom"),
+    billingCycle: billingCycle || undefined,
     billingNote: pickString(record, ["billingNote", "description"], "Flexible engagement"),
     badge: pickString(record, ["planBadge", "badge"]) || undefined,
+    buttonText: pickString(record, ["buttonText"]) || undefined,
+    platformLimit: pickString(record, ["platformLimit"]) || undefined,
     features: arrayFrom(record.features).map((item) => textFrom(item)).filter(Boolean),
     highlighted: boolFrom(record.isPopular),
     raw: record
@@ -209,7 +213,7 @@ function normalizeTeamMember(record: ApiRecord): TeamMember {
   return {
     ...base,
     role: pickString(record, ["designation", "role", "CDesignation", "MemberDesignation", "MemberCoreSkill"]) || undefined,
-    email: pickString(record, ["email"]) || undefined,
+    email: pickString(record, ["email", "Email"]) || undefined,
     phone: pickString(record, ["phone", "phoneNumber", "PhoneNumber"]) || undefined
   };
 }

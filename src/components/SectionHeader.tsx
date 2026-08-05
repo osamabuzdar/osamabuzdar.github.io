@@ -1,3 +1,5 @@
+import { Reveal } from "@/components/motion/Reveal";
+
 type SectionHeaderProps = {
   eyebrow?: string;
   title: string;
@@ -6,10 +8,10 @@ type SectionHeaderProps = {
 
 export function SectionHeader({ eyebrow, title, description }: SectionHeaderProps) {
   return (
-    <div className="section-header">
+    <Reveal className="section-header">
       {eyebrow ? <p className="eyebrow dark">{eyebrow}</p> : null}
       <h2>{title}</h2>
       {description ? <p>{description}</p> : null}
-    </div>
+    </Reveal>
   );
 }

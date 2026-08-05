@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Reveal } from "@/components/motion/Reveal";
 import type { SiteEntity } from "@/types/site";
 
 type EntityCardProps = {
@@ -9,7 +10,7 @@ type EntityCardProps = {
 
 export function EntityCard({ entity, href, label = "Read More" }: EntityCardProps) {
   return (
-    <article className="entity-card">
+    <Reveal as="article" className="entity-card">
       {entity.image ? (
         <img src={entity.image} alt={entity.title} />
       ) : (
@@ -21,6 +22,6 @@ export function EntityCard({ entity, href, label = "Read More" }: EntityCardProp
         <p>{entity.description}</p>
         <Link href={href}>{label}</Link>
       </div>
-    </article>
+    </Reveal>
   );
 }

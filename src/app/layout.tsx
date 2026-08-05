@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { MotionProvider } from "@/components/motion/MotionProvider";
+import { PageProgress } from "@/components/motion/PageProgress";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { JsonLd } from "@/components/JsonLd";
@@ -21,13 +23,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth">
-      <body>
-        <JsonLd data={organizationJsonLd()} />
-        <JsonLd data={websiteJsonLd()} />
-        <SiteHeader />
-        <main>{children}</main>
-        <SiteFooter />
+    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
+      <body suppressHydrationWarning>
+        <MotionProvider>
+          <JsonLd data={organizationJsonLd()} />
+          <JsonLd data={websiteJsonLd()} />
+          <PageProgress />
+          <SiteHeader />
+          <main>{children}</main>
+          <SiteFooter />
+        </MotionProvider>
       </body>
     </html>
   );

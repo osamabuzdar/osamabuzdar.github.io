@@ -28,12 +28,16 @@ export default async function PricingPage() {
             <article className={`price-card ${plan.highlighted ? "highlighted" : ""}`} key={plan.id}>
               {plan.badge ? <span className="card-kicker">{plan.badge}</span> : null}
               <h2>{plan.title}</h2>
-              <p className="price">{plan.price}</p>
+              <p className="price">
+                {plan.price}
+                {plan.billingCycle ? <span className="price-cycle"> / {plan.billingCycle}</span> : null}
+              </p>
               <p>{plan.billingNote}</p>
+              {plan.platformLimit ? <p className="platform-limit">{plan.platformLimit}</p> : null}
               <ul>
                 {plan.features.map((feature) => <li key={feature}>{feature}</li>)}
               </ul>
-              <Link className="button primary" href="/contact">Request a Demo</Link>
+              <Link className="button primary" href="/contact">{plan.buttonText || "Request a Demo"}</Link>
             </article>
           ))}
         </div>

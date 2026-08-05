@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { Stagger, StaggerItem } from "@/components/motion/Stagger";
 import type { BlogPostMeta } from "@/types/site";
 
 export function BlogExplorer({ posts }: { posts: BlogPostMeta[] }) {
@@ -47,9 +48,9 @@ export function BlogExplorer({ posts }: { posts: BlogPostMeta[] }) {
         </label>
       </div>
       {filtered.length ? (
-        <div className="blog-grid">
+        <Stagger className="blog-grid">
           {filtered.map((post) => (
-            <article className="blog-card" key={post.slug}>
+            <StaggerItem className="blog-card" key={post.slug}>
               {post.featuredImage ? <img src={post.featuredImage} alt={post.title} /> : <div className="image-fallback">BB</div>}
               <div className="card-body">
                 <span className="card-kicker">{post.category}</span>
@@ -61,9 +62,9 @@ export function BlogExplorer({ posts }: { posts: BlogPostMeta[] }) {
                 </div>
                 <Link href={`/blog/${post.slug}`}>Read article</Link>
               </div>
-            </article>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       ) : (
         <p className="empty-state">No articles match those filters.</p>
       )}

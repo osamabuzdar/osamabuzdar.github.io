@@ -15,8 +15,11 @@ export type PricingPlan = {
   id: string;
   title: string;
   price: string;
+  billingCycle?: string;
   billingNote: string;
   badge?: string;
+  buttonText?: string;
+  platformLimit?: string;
   features: string[];
   highlighted: boolean;
   raw: ApiRecord;
