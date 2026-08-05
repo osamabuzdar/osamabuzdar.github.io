@@ -1,12 +1,18 @@
 import type { NextConfig } from "next";
 
+const isGitHubPages = process.env.GITHUB_ACTIONS === "true";
+
 const nextConfig: NextConfig = {
-  output: "export",
+  output: isGitHubPages ? "export" : undefined,
+
   images: {
-    unoptimized: true,
+    unoptimized: isGitHubPages,
   },
+
   allowedDevOrigins: ["192.168.1.125"],
+
   trailingSlash: false,
+
   typedRoutes: false,
 };
 
