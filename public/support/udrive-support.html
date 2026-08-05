@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Support center for U Drive vehicle tracking and fleet monitoring app."
+    />
+    <title>U Drive Support</title>
+    <style>
+      :root {
+        --blue: #0b3d78;
+        --blue-dark: #03162e;
+        --green: #65b80f;
+        --green-dark: #1c6e19;
+        --accent: #1e8fe6;
+        --ink: #071c33;
+        --muted: #61758a;
+        --line: #d7e3ef;
+        --surface: #ffffff;
+        --soft: #eef6fb;
+        --green-soft: #eef8e8;
+        --shadow: 0 18px 45px rgba(3, 22, 46, 0.12);
+        --radius: 22px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        line-height: 1.7;
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(101, 184, 15, 0.16),
+            transparent 30rem
+          ),
+          linear-gradient(180deg, #f5f9fc 0%, #ffffff 46%, #eef8e8 100%);
+      }
+
+      a {
+        color: var(--blue);
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .page {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .hero {
+        min-height: 68vh;
+        display: grid;
+        grid-template-columns: minmax(0, 1.04fr) minmax(300px, 0.96fr);
+        gap: 42px;
+        align-items: center;
+        padding: 42px 0 34px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 14px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.82);
+        box-shadow: 0 10px 24px rgba(3, 22, 46, 0.08);
+      }
+
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+        display: grid;
+        place-items: center;
+        border-radius: 12px;
+        color: #ffffff;
+        font-weight: 1000;
+        letter-spacing: 0;
+        background: linear-gradient(
+          135deg,
+          var(--blue-dark),
+          var(--blue),
+          var(--green)
+        );
+      }
+
+      .brand-name {
+        font-size: 0.95rem;
+        font-weight: 900;
+        color: var(--blue-dark);
+      }
+
+      h1 {
+        max-width: 760px;
+        margin: 28px 0 16px;
+        color: var(--blue-dark);
+        font-size: clamp(2.25rem, 7vw, 5rem);
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 720px;
+        margin: 0;
+        color: #29445f;
+        font-size: clamp(1rem, 2vw, 1.16rem);
+        font-weight: 600;
+      }
+
+      .meta-strip {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 26px;
+      }
+
+      .meta-pill {
+        padding: 9px 12px;
+        border: 1px solid rgba(11, 61, 120, 0.14);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.78);
+        color: var(--blue);
+        font-size: 0.88rem;
+        font-weight: 850;
+      }
+
+      .visual-card {
+        min-height: 430px;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(215, 227, 239, 0.9);
+        border-radius: 30px;
+        background:
+          linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.92),
+            rgba(238, 248, 232, 0.88)
+          ),
+          repeating-linear-gradient(
+            0deg,
+            transparent 0,
+            transparent 31px,
+            rgba(11, 61, 120, 0.05) 32px
+          ),
+          repeating-linear-gradient(
+            90deg,
+            transparent 0,
+            transparent 31px,
+            rgba(11, 61, 120, 0.05) 32px
+          );
+        box-shadow: var(--shadow);
+      }
+
+      .route {
+        position: absolute;
+        inset: 44px 38px;
+      }
+
+      .route::before {
+        content: "";
+        position: absolute;
+        left: 8%;
+        top: 48%;
+        width: 82%;
+        height: 44%;
+        border-top: 8px solid rgba(11, 61, 120, 0.18);
+        border-right: 8px solid rgba(11, 61, 120, 0.18);
+        border-radius: 45% 55% 0 0;
+        transform: rotate(-10deg);
+      }
+
+      .route::after {
+        content: "";
+        position: absolute;
+        left: 12%;
+        top: 52%;
+        width: 58%;
+        height: 30%;
+        border-top: 8px solid var(--green);
+        border-right: 8px solid var(--green);
+        border-radius: 45% 55% 0 0;
+        transform: rotate(-10deg);
+        box-shadow: 0 12px 24px rgba(101, 184, 15, 0.22);
+      }
+
+      .pin {
+        position: absolute;
+        width: 58px;
+        height: 58px;
+        display: grid;
+        place-items: center;
+        border: 1px solid rgba(215, 227, 239, 0.9);
+        border-radius: 20px;
+        background: #ffffff;
+        box-shadow: 0 14px 30px rgba(3, 22, 46, 0.13);
+      }
+
+      .pin::before {
+        content: "";
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--green);
+        box-shadow: inset 0 0 0 6px rgba(255, 255, 255, 0.72);
+      }
+
+      .pin.start {
+        left: 34px;
+        bottom: 72px;
+      }
+
+      .pin.end {
+        right: 34px;
+        top: 62px;
+      }
+
+      .pin.end::before {
+        background: var(--accent);
+      }
+
+      .phone {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 170px;
+        min-height: 248px;
+        transform: translate(-50%, -50%);
+        border: 8px solid var(--blue-dark);
+        border-radius: 32px;
+        background: #ffffff;
+        box-shadow: 0 24px 46px rgba(3, 22, 46, 0.22);
+      }
+
+      .phone::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 10px;
+        width: 46px;
+        height: 5px;
+        border-radius: 999px;
+        background: rgba(3, 22, 46, 0.18);
+        transform: translateX(-50%);
+      }
+
+      .phone-screen {
+        padding: 30px 14px 16px;
+      }
+
+      .map-line {
+        height: 70px;
+        border-radius: 18px;
+        background:
+          linear-gradient(
+            135deg,
+            rgba(30, 143, 230, 0.18),
+            rgba(101, 184, 15, 0.2)
+          ),
+          linear-gradient(
+            90deg,
+            transparent 0 18%,
+            rgba(11, 61, 120, 0.15) 18% 21%,
+            transparent 21% 52%,
+            rgba(101, 184, 15, 0.25) 52% 56%,
+            transparent 56%
+          );
+      }
+
+      .metric {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        margin-top: 12px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--soft);
+        font-size: 0.78rem;
+        font-weight: 850;
+        color: var(--blue);
+      }
+
+      .shield {
+        position: absolute;
+        right: 28px;
+        bottom: 28px;
+        padding: 14px 16px;
+        border-radius: 18px;
+        color: #ffffff;
+        background: linear-gradient(135deg, var(--blue), var(--green-dark));
+        box-shadow: 0 16px 34px rgba(28, 110, 25, 0.22);
+        font-weight: 900;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 280px minmax(0, 1fr);
+        gap: 28px;
+        padding: 24px 0 70px;
+      }
+
+      .toc {
+        position: sticky;
+        top: 20px;
+        align-self: start;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 10px 28px rgba(3, 22, 46, 0.07);
+      }
+
+      .toc strong {
+        display: block;
+        margin-bottom: 10px;
+        color: var(--blue-dark);
+        font-size: 0.88rem;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .toc a {
+        display: block;
+        padding: 9px 0;
+        color: var(--muted);
+        font-size: 0.94rem;
+        font-weight: 800;
+      }
+
+      .content {
+        display: grid;
+        gap: 18px;
+      }
+
+      .support-card {
+        padding: clamp(20px, 4vw, 32px);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow: 0 12px 34px rgba(3, 22, 46, 0.07);
+      }
+
+      .support-card.highlight {
+        border-color: rgba(101, 184, 15, 0.45);
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.96),
+          rgba(238, 248, 232, 0.92)
+        );
+      }
+
+      h2 {
+        margin: 0 0 12px;
+        color: var(--blue-dark);
+        font-size: clamp(1.28rem, 3vw, 1.8rem);
+        line-height: 1.2;
+        letter-spacing: 0;
+      }
+
+      h3 {
+        margin: 20px 0 8px;
+        color: var(--blue);
+        font-size: 1.02rem;
+      }
+
+      p {
+        margin: 0 0 12px;
+      }
+
+      ul,
+      ol {
+        margin: 10px 0 0;
+        padding-left: 20px;
+      }
+
+      li {
+        margin: 8px 0;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 16px;
+      }
+
+      .mini-card {
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: #ffffff;
+      }
+
+      .mini-card strong {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--blue);
+      }
+
+      .contact-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .contact-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 46px;
+        padding: 10px 16px;
+        border: 1px solid rgba(11, 61, 120, 0.18);
+        border-radius: 999px;
+        background: #ffffff;
+        box-shadow: 0 10px 22px rgba(3, 22, 46, 0.07);
+      }
+
+      .contact-button.primary {
+        color: #ffffff;
+        background: linear-gradient(135deg, var(--blue), var(--green-dark));
+      }
+
+      .footer {
+        padding: 34px 0 42px;
+        color: var(--muted);
+        text-align: center;
+        font-size: 0.92rem;
+        font-weight: 700;
+      }
+
+      @media (max-width: 860px) {
+        .hero,
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          min-height: auto;
+          padding-top: 28px;
+        }
+
+        .visual-card {
+          min-height: 360px;
+        }
+
+        .toc {
+          position: static;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .page {
+          width: min(100% - 22px, 1120px);
+        }
+
+        .hero {
+          gap: 28px;
+        }
+
+        .visual-card {
+          min-height: 320px;
+          border-radius: 24px;
+        }
+
+        .phone {
+          width: 145px;
+          min-height: 218px;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .contact-button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <div>
+          <div class="brand" aria-label="U Drive">
+            <div class="brand-mark">U</div>
+            <div class="brand-name">U Drive</div>
+          </div>
+          <h1>Support Center</h1>
+          <p class="lead">
+            Find help for U Drive vehicle tracking, account access, live
+            location, ignition status, reports, alerts, and app setup. This
+            page gives iOS users a dedicated place to solve product issues and
+            contact customer service.
+          </p>
+          <div class="meta-strip" aria-label="Support summary">
+            <span class="meta-pill">Updated August 3, 2026</span>
+            <span class="meta-pill">iOS app support</span>
+            <span class="meta-pill">Vehicle tracking help</span>
+          </div>
+        </div>
+
+        <div class="visual-card" aria-hidden="true">
+          <div class="route"></div>
+          <div class="pin start"></div>
+          <div class="pin end"></div>
+          <div class="phone">
+            <div class="phone-screen">
+              <div class="map-line"></div>
+              <div class="metric"><span>Status</span><span>Online</span></div>
+              <div class="metric"><span>Support</span><span>Ready</span></div>
+              <div class="metric"><span>Alerts</span><span>Active</span></div>
+            </div>
+          </div>
+          <div class="shield">Help desk</div>
+        </div>
+      </section>
+
+      <section class="layout">
+        <nav class="toc" aria-label="Support sections">
+          <strong>Support</strong>
+          <a href="#start">Start Here</a>
+          <a href="#articles">Help Articles</a>
+          <a href="#issues">Resolve Product Issues</a>
+          <a href="#account">Account and Access</a>
+          <a href="#tracking">Tracking and Vehicle Data</a>
+          <a href="#ios">iOS App Checklist</a>
+          <a href="#contact">Contact Customer Service</a>
+          <a href="#privacy">Privacy and Data</a>
+        </nav>
+
+        <div class="content">
+          <article id="start" class="support-card highlight">
+            <h2>Start Here</h2>
+            <p>
+              U Drive support helps authorized vehicle owners, drivers, fleet
+              users, and business users get help with the mobile app and vehicle
+              tracking service. If something is not working as expected, gather
+              your registered phone number or account ID, vehicle name or
+              registration number, device model, app version, and a short
+              description of the issue before contacting support.
+            </p>
+            <p>
+              For urgent vehicle safety concerns, contact your local emergency
+              services first. U Drive support can help with app access, service
+              status, tracking data, and product troubleshooting.
+            </p>
+          </article>
+
+          <article id="articles" class="support-card">
+            <h2>Help Articles</h2>
+            <div class="grid">
+              <div class="mini-card">
+                <strong>Sign in to U Drive</strong>
+                Make sure you are using the registered account credentials
+                provided for your vehicle or fleet. If login fails, confirm your
+                internet connection and request account verification from
+                support.
+              </div>
+              <div class="mini-card">
+                <strong>View live vehicle status</strong>
+                Open the vehicle list or map view to check online status, speed,
+                ignition, and location. If data looks delayed, refresh the app
+                and check mobile data or Wi-Fi.
+              </div>
+              <div class="mini-card">
+                <strong>Review trips and reports</strong>
+                Use trip history, mileage, alarms, and reports to review vehicle
+                movement. Availability may depend on your tracking device,
+                service package, and account permissions.
+              </div>
+              <div class="mini-card">
+                <strong>Manage alerts</strong>
+                Vehicle alerts and push notifications may require notification
+                permission in iOS settings. Confirm alerts are enabled for U
+                Drive and that your account has access to the selected vehicle.
+              </div>
+            </div>
+          </article>
+
+          <article id="issues" class="support-card">
+            <h2>Resolve Product Issues</h2>
+            <p>
+              Try these steps first for common app and tracking problems:
+            </p>
+            <ol>
+              <li>Confirm your iPhone has a stable internet connection.</li>
+              <li>Close U Drive completely, then open it again.</li>
+              <li>Check the App Store for the latest U Drive update.</li>
+              <li>
+                Confirm your account is assigned to the correct vehicle or
+                fleet.
+              </li>
+              <li>
+                If the vehicle is offline or data is delayed, wait a few minutes
+                and refresh the vehicle screen.
+              </li>
+              <li>
+                Contact support with screenshots, error messages, vehicle
+                details, and the time the issue happened.
+              </li>
+            </ol>
+          </article>
+
+          <article id="account" class="support-card">
+            <h2>Account and Access</h2>
+            <ul>
+              <li>
+                If you cannot sign in, verify that your account is active and
+                that you are using the correct credentials.
+              </li>
+              <li>
+                If a vehicle is missing, ask your fleet administrator or U Drive
+                support to confirm vehicle assignment.
+              </li>
+              <li>
+                If your account should be removed, contact support and include
+                the account identifier used for U Drive.
+              </li>
+              <li>
+                For business or fleet accounts, access changes may require
+                approval from the account owner or administrator.
+              </li>
+            </ul>
+          </article>
+
+          <article id="tracking" class="support-card">
+            <h2>Tracking and Vehicle Data</h2>
+            <p>
+              Vehicle location, ignition state, speed, mileage, route history,
+              and alerts depend on your assigned tracking device, network
+              coverage, server availability, and account permissions. If vehicle
+              data appears unavailable, delayed, or incorrect, support may ask
+              for the vehicle registration number, last known location, device
+              status, and approximate time of the issue.
+            </p>
+            <p>
+              Some issues may require checking the installed tracking hardware,
+              SIM/network connectivity, vehicle power, or backend service
+              configuration.
+            </p>
+          </article>
+
+          <article id="ios" class="support-card">
+            <h2>iOS App Checklist</h2>
+            <ul>
+              <li>
+                Update U Drive from the App Store when a new version is
+                available.
+              </li>
+              <li>
+                Open iPhone Settings, choose U Drive, and confirm notification
+                access if you want vehicle alerts.
+              </li>
+              <li>
+                Make sure Low Data Mode, VPN, or restricted network settings are
+                not blocking app connectivity.
+              </li>
+              <li>
+                Restart your iPhone if maps, reports, or notification delivery
+                continue to behave unexpectedly.
+              </li>
+            </ul>
+          </article>
+
+          <article id="contact" class="support-card highlight">
+            <h2>Contact Customer Service</h2>
+            <p>
+              If the help articles do not solve your issue, contact U Drive
+              customer service. Include your name, registered account or phone
+              number, vehicle name or registration number, iPhone model, iOS
+              version, app version, screenshots if available, and a clear
+              description of the problem.
+            </p>
+            <div class="contact-actions" aria-label="Customer service actions">
+              <a class="contact-button primary" href="mailto:jamshedjm@gmail.com"
+                >Email support</a
+              >
+              <a class="contact-button" href="tel:03111847847">Call support</a>
+              <a class="contact-button" href="#issues">Troubleshooting steps</a>
+            </div>
+            <p>
+              Email:
+              <a href="mailto:jamshedjm@gmail.com">jamshedjm@gmail.com</a><br />
+              Phone: <a href="tel:03111847847">03111847847</a>
+            </p>
+          </article>
+
+          <article id="privacy" class="support-card">
+            <h2>Privacy and Data</h2>
+            <p>
+              For details about how U Drive handles account information, vehicle
+              tracking data, app diagnostics, notifications, support requests,
+              and user choices, review the
+              <a href="udrive-privacy.html">U Drive Privacy Policy</a>.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      U Drive Support. Vehicle tracking, safer journeys, better control.
+    </footer>
+  </body>
+</html>

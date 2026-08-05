@@ -1,0 +1,33 @@
+{
+  "name": "bulkbytes-next-site",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "npm run validate:legacy && next build && npm run validate:legacy:out",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "validate:legacy": "node scripts/validate-legacy-pages.mjs public",
+    "validate:legacy:out": "node scripts/validate-legacy-pages.mjs out"
+  },
+  "dependencies": {
+    "@mdx-js/react": "latest",
+    "gray-matter": "latest",
+    "lucide-react": "latest",
+    "next": "latest",
+    "next-mdx-remote": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "reading-time": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "typescript": "^5.9.3"
+  }
+}
