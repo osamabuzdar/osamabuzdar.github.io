@@ -1,0 +1,2 @@
+:HL["/_next/static/chunks/2f6z1sidbqr2x.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":4180,"slots":{"children":{"name":"team-details","param":null,"prefetchHints":4192,"slots":{"children":{"name":"id","param":{"type":"d","key":"695fa1566838d6437703dd14","siblings":[]},"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}}}},"staleTime":300,"buildId":"CjGwa43tgvtTeBda9PM2v"}
