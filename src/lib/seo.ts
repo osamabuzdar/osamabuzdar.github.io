@@ -7,6 +7,7 @@ type SeoInput = {
   path?: string;
   image?: string;
   type?: "website" | "article";
+  keywords?: string[];
 };
 
 export function absoluteUrl(path = "/") {
@@ -14,13 +15,14 @@ export function absoluteUrl(path = "/") {
   return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
 }
 
-export function createMetadata({ title, description, path = "/", image = "/images/logo.webp", type = "website" }: SeoInput): Metadata {
+export function createMetadata({ title, description, path = "/", image = "/images/logo.webp", type = "website", keywords }: SeoInput): Metadata {
   const url = absoluteUrl(path);
   const fullTitle = title.includes("Bulk Bytes") ? title : `${title} | Bulk Bytes`;
 
   return {
     title: fullTitle,
     description,
+    keywords,
     alternates: {
       canonical: url
     },

@@ -7,6 +7,28 @@ const nextConfig: NextConfig = {
 
   images: {
     unoptimized: isGitHubPages,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        pathname: "/**"
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        pathname: "/**"
+      },
+      {
+        protocol: "https",
+        hostname: "api.bulkbytes.org",
+        pathname: "/**"
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        pathname: "/**"
+      }
+    ]
   },
 
   allowedDevOrigins: ["192.168.1.125"],

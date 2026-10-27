@@ -171,3 +171,40 @@ export const fallbackFaqs: FaqItem[] = [
     category: "Legacy URLs"
   }
 ];
+
+export const fallbackBlogs = [
+  {
+    title: "What to Publish First When Starting a Company Blog",
+    slug: "what-to-publish-first-when-starting-a-company-blog",
+    excerpt: "Start with the articles that answer your best customers' biggest questions.",
+    category: "Strategy",
+    status: "published",
+    featuredImage: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1200&q=80",
+    publishedAt: "2026-08-15T10:00:00.000Z",
+    content:
+      "<p>When starting a company blog, don't try to cover everything at once. Focus on foundational topics that explain what you do, who you help, and why your approach works.</p><h2>1. Answer top customer questions</h2><p>Write directly about common questions prospects ask during sales calls.</p><h2>2. Outline your process</h2><p>Show people how you work from start to finish.</p><h2>3. Share case studies</h2><p>Demonstrate real business outcomes with specific examples.</p>"
+  },
+  {
+    title: "How Better UI Can Increase Leads on Your Website",
+    slug: "how-better-ui-can-increase-leads-on-your-website",
+    excerpt: "Design choices that remove friction, guide attention, and make next steps obvious.",
+    category: "Design",
+    status: "published",
+    featuredImage: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80",
+    publishedAt: "2026-08-14T10:00:00.000Z",
+    content:
+      "<p>A good user interface does not just look pretty—it guides the visitor through a logical sequence of decisions.</p><h2>1. Clean visual hierarchy</h2><p>Make sure the main action stands out immediately.</p><h2>2. Fast loading speeds</h2><p>Every second of delay loses potential customers.</p><h2>3. Mobile optimization</h2><p>Ensure thumb-friendly navigation and clear contact options.</p>"
+  },
+  {
+    title: "Choosing the Right Tech Stack for a Growing Business",
+    slug: "choosing-the-right-tech-stack-for-a-growing-business",
+    excerpt: "The right stack keeps your product stable now and flexible enough for growth later.",
+    category: "Development",
+    status: "published",
+    featuredImage: "https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=1200&q=80",
+    publishedAt: "2026-08-13T10:00:00.000Z",
+    content:
+      "<p>When a business grows, the stack has to support change without becoming a bottleneck. That means thinking about performance, maintainability, cost, and the team that will actually use it.</p><h2>Good questions to ask</h2><ul><li>Will the stack scale with demand?</li><li>Can the team maintain it?</li><li>How easy is deployment and monitoring?</li><li>What happens when requirements change?</li></ul>"
+  }
+];
+

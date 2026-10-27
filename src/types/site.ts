@@ -45,13 +45,26 @@ export type BlogPostMeta = {
   publishedAt: string;
   updatedAt?: string;
   author: string;
+  authorBio?: string;
   category: string;
   tags: string[];
   featuredImage?: string;
+  galleryImages?: string[];
+  featuredPost?: boolean;
+  canonicalUrl?: string;
+  seoKeywords?: string[];
   draft: boolean;
   readingTime: string;
 };
 
 export type BlogPost = BlogPostMeta & {
   content: string;
+};
+
+export type BlogComment = {
+  _id?: string;
+  name: string;
+  email?: string;
+  message: string;
+  createdAt?: string;
 };

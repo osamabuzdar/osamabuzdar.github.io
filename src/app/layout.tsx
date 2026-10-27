@@ -4,6 +4,7 @@ import { PageProgress } from "@/components/motion/PageProgress";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { JsonLd } from "@/components/JsonLd";
+import { SplashScreen } from "@/components/SplashScreen";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import "./globals.css";
 
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body suppressHydrationWarning>
+        <SplashScreen />
         <MotionProvider>
           <JsonLd data={organizationJsonLd()} />
           <JsonLd data={websiteJsonLd()} />

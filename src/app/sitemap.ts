@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { criticalLegacyUrls, SITE_URL } from "@/lib/constants";
-import { getPostMeta } from "@/lib/blog";
+import { getBlogPostMeta } from "@/lib/blog";
 import { getProjects, getServices, getTeam } from "@/lib/api";
 
 export const dynamic = "force-static";
@@ -12,7 +12,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...services.map((item) => `/services-detail/${item.id}`),
     ...projects.map((item) => `/portfolio-details/${item.id}`),
     ...team.map((item) => `/team-details/${item.id}`),
-    ...getPostMeta().map((post) => `/blog/${post.slug}`),
+    ...(await getBlogPostMeta()).map((post) => `/blog/${post.slug}`),
     ...criticalLegacyUrls
   ];
 

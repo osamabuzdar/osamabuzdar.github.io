@@ -1,11 +1,9 @@
 import { notFound } from "next/navigation";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { PageHero } from "@/components/PageHero";
-import { SectionHeader } from "@/components/SectionHeader";
+import { ProjectDetailClient } from "@/components/ProjectDetailClient";
 import { getProject, getProjects } from "@/lib/api";
 import { createMetadata } from "@/lib/seo";
-import { pickString, textFrom } from "@/lib/utils";
-import type { ApiRecord } from "@/types/site";
+import { pickString, slugify } from "@/lib/utils";
+import type { ApiRecord, SiteEntity } from "@/types/site";
 
 export const dynamicParams = false;
 
@@ -25,54 +23,66 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   });
 }
 
+function entityFromRecord(record: Record<string, unknown>): SiteEntity {
+  const title = pickString(record, ["title", "name", "PName", "projectName"], "Project");
+  const id = pickString(record, ["_id", "id", "slug"], slugify(title));
+
+  return {
+    id,
+    slug: pickString(record, ["slug"], slugify(`${title}-${id}`)),
+    title,
+    description: pickString(record, ["description", "PDescription", "shortDescription"], ""),
+    image: pickString(record, ["image", "PImage", "featuredImage"]) || undefined,
+    category: pickString(record, ["category", "PType", "projectCategory"]) || undefined,
+    tags: [],
+    raw: record
+  };
+}
+
+function buildRelatedProjects(project: SiteEntity, allProjects: SiteEntity[]) {
+  const raw = project.raw as ApiRecord;
+  const relatedRaw = Array.isArray(raw.relatedProjects) ? raw.relatedProjects : [];
+
+  if (relatedRaw.length > 0) {
+    const related = relatedRaw
+      .map((item) => {
+        if (typeof item === "string") {
+          return allProjects.find(
+            (candidate) => candidate.id === item || candidate.slug === item || candidate.title === item
+          );
+        }
+
+        if (item && typeof item === "object") {
+          const record = item as Record<string, unknown>;
+          const candidateId = pickString(record, ["_id", "id", "slug", "PName", "title"]);
+          const found = allProjects.find(
+            (candidate) => candidate.id === candidateId || candidate.slug === candidateId || candidate.title === candidateId
+          );
+          return found || entityFromRecord(record);
+        }
+
+        return undefined;
+      })
+      .filter((item): item is SiteEntity => Boolean(item));
+
+    if (related.length > 0) return related.slice(0, 2);
+  }
+
+  const sameCategory = allProjects.filter(
+    (candidate) => candidate.id !== project.id && candidate.category && candidate.category === project.category
+  );
+
+  const fallback = sameCategory.length > 0 ? sameCategory : allProjects.filter((candidate) => candidate.id !== project.id);
+  return fallback.slice(0, 2);
+}
+
 export default async function ProjectDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const project = await getProject(id).catch(() => undefined);
   if (!project) notFound();
-  const raw = project.raw;
-  const strategyTitle = pickString(raw, ["strategyTitle"]);
-  const strategyDescription = pickString(raw, ["strategyDescription"]);
-  const challengeTitle = pickString(raw, ["challengeTitle"]);
-  const challengeDescription = pickString(raw, ["challengeDescription"]);
-  const clientName = pickString(raw, ["clientName"]);
-  const projectLink = pickString(raw, ["PLink"]);
-  const address = pickString(raw, ["address"]);
-  const clientReview = raw.clientReview && typeof raw.clientReview === "object" ? raw.clientReview as ApiRecord : undefined;
 
-  return (
-    <>
-      <PageHero title={project.title} description={project.description} image={project.image || "/images/pricing-bg.webp"} />
-      <section className="section narrow">
-        <Breadcrumbs items={[{ href: "/", label: "Home" }, { href: "/portfolio", label: "Portfolio" }, { href: `/portfolio-details/${project.id}`, label: project.title }]} />
-        <SectionHeader eyebrow="Project Information" title={project.title} description={project.description} />
-        <div className="rich-panel">
-          <p>{project.description}</p>
-          <dl className="detail-list">
-            {clientName ? <><dt>Client</dt><dd>{clientName}</dd></> : null}
-            {project.category ? <><dt>Category</dt><dd>{project.category}</dd></> : null}
-            {address ? <><dt>Address</dt><dd>{address}</dd></> : null}
-            {projectLink ? <><dt>Project Link</dt><dd><a href={projectLink} rel="noreferrer" target="_blank">{projectLink}</a></dd></> : null}
-          </dl>
-        </div>
-        {strategyTitle || strategyDescription ? (
-          <div className="rich-panel">
-            <h2>{strategyTitle || "Project Strategy"}</h2>
-            {strategyDescription ? <p>{strategyDescription}</p> : null}
-          </div>
-        ) : null}
-        {challengeTitle || challengeDescription ? (
-          <div className="rich-panel">
-            <h2>{challengeTitle || "Project Challenge"}</h2>
-            {challengeDescription ? <p>{challengeDescription}</p> : null}
-          </div>
-        ) : null}
-        {clientReview ? (
-          <blockquote className="project-review">
-            <p>“{pickString(clientReview, ["reviewDescription"])}”</p>
-            <cite>{pickString(clientReview, ["clientName"])} {textFrom(clientReview.designation) ? `- ${textFrom(clientReview.designation)}` : ""}</cite>
-          </blockquote>
-        ) : null}
-      </section>
-    </>
-  );
+  const relatedProjects = buildRelatedProjects(project, await getProjects());
+
+  return <ProjectDetailClient project={project} relatedProjects={relatedProjects} />;
 }
+

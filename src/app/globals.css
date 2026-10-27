@@ -1,4 +1,7 @@
+@import "tailwindcss";
+
 :root {
+  color-scheme: light;
   --ink: #071c33;
   --muted: #5a6b7c;
   --blue: #0b3d78;
@@ -703,6 +706,20 @@ details {
   }
 }
 
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  width: max-content;
+  animation: scroll 20s linear infinite;
+}
+
 blockquote {
   margin: 0;
   padding: 26px;
@@ -1146,4 +1163,35 @@ details p {
   .hero-visual {
     display: none;
   }
+}
+
+/* Splash Screen Animations */
+@keyframes letterBlink {
+  0%, 80%, 100% {
+    opacity: 0.2;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+.letter-blink {
+  display: inline-block;
+  animation: letterBlink 1.2s infinite;
+}
+
+@keyframes logoBlink {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+}
+
+.logo-blink {
+  display: inline-block;
+  animation: logoBlink 1s infinite;
 }

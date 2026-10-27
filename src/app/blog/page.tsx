@@ -1,6 +1,6 @@
 import { BlogExplorer } from "@/components/BlogExplorer";
 import { PageHero } from "@/components/PageHero";
-import { getPostMeta } from "@/lib/blog";
+import { getBlogPostMeta } from "@/lib/blog";
 import { createMetadata } from "@/lib/seo";
 
 export const metadata = createMetadata({
@@ -9,8 +9,8 @@ export const metadata = createMetadata({
   path: "/blog"
 });
 
-export default function BlogPage() {
-  const posts = getPostMeta();
+export default async function BlogPage() {
+  const posts = await getBlogPostMeta();
 
   return (
     <>
@@ -21,7 +21,12 @@ export default function BlogPage() {
         image="/images/hero-section-image-others.webp"
       />
       <section className="section">
-        <BlogExplorer posts={posts} />
+        <BlogExplorer
+          posts={posts}
+          initialSearch=""
+          initialCategory="All"
+          initialTag="All"
+        />
       </section>
     </>
   );
